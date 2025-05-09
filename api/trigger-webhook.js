@@ -12,7 +12,7 @@ module.exports = (req, res) => {
     const attachments = (req.files || []).map(file => ({
       filename: file.originalname,
       mimetype: file.mimetype,
-      data: Array.from(file.buffer), // send as binary array for Google Drive compatibility
+      data: file.buffer.toString('base64'), // send as base64 string for Google Drive compatibility
     }));
 
     try {
