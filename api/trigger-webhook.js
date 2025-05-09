@@ -13,7 +13,10 @@ module.exports = (req, res) => {
       filename: file.originalname,
       mimetype: file.mimetype,
       data: file.buffer.toString('base64'), // send as base64 string for Google Drive compatibility
+      fileType: file.originalname.split('.').pop() || '',
     }));
+
+    const numberOfAttachments = attachments.length;
 
     try {
       const response = await fetch('https://kieranjackson.app.n8n.cloud/webhook-test/a1a37b15-fd78-40f7-b0a1-64576b0adf64', {
@@ -29,6 +32,7 @@ module.exports = (req, res) => {
           adminEmail,
           subscriptionMethod,
           attachments,
+          numberOfAttachments,
         }),
       });
 
