@@ -222,7 +222,13 @@
     document.getElementById('schoolForm').addEventListener('submit', async function(e) {
       e.preventDefault();
       const formData = new FormData(this);
+
+      // Remove any files that may have been added by the file input
+      formData.delete('attachments');
+
+      // Only append files from your files array
       files.forEach(f => formData.append('attachments', f));
+
       try {
         const res = await fetch('/api/trigger-webhook', {
           method: 'POST',
