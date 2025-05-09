@@ -8,20 +8,24 @@ module.exports = (req, res) => {
   }
   multer.array('attachments')(req, {}, async (err) => {
     if (err) return res.status(500).send('Upload error');
-    const { schoolName, schoolType, adminName, adminEmail, subscriptionMethod } = req.body;
+    const { schoolName, schoolType, adminName, adminFirstName, adminLastName, adminTitle, adminEmail, subscriptionMethod } = req.body;
     const attachments = (req.files || []).map(file => ({
       filename: file.originalname,
-      content: file.buffer.toString('base64'),
+      mimetype: file.mimetype,
+      data: Array.from(file.buffer), // send as binary array for Google Drive compatibility
     }));
 
     try {
-      const response = await fetch('https://kieranjackson.app.n8n.cloud/webhook-test/a1a37b15-fd78-40f7-b0a1-64576b0adf64', {
+      const response = await fetch('https://kieranjackson.app.n8n.cloud/webhook/a1a37b15-fd78-40f7-b0a1-64576b0adf64', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           schoolName,
           schoolType,
           adminName,
+          adminFirstName,
+          adminLastName,
+          adminTitle,
           adminEmail,
           subscriptionMethod,
           attachments,

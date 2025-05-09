@@ -53,7 +53,12 @@
       background: #f7f7f7;
       font-size: 1rem;
       margin-bottom: 32px;
-      color: #888;
+      color: #222;
+      box-sizing: border-box;
+    }
+    .input:focus {
+      outline: 2px solid #1a73e8;
+      border-color: #1a73e8;
     }
     .input[readonly] {
       color: #bbb;
@@ -68,6 +73,7 @@
       align-items: center;
       font-size: 1rem;
       color: #444;
+      font-weight: 400;
       cursor: pointer;
     }
     .radio-label input[type="radio"] {
@@ -128,7 +134,7 @@
     <hr style="border:none;border-top:1.5px solid #e0e0e0;margin-bottom:36px;">
     <form id="schoolForm" enctype="multipart/form-data">
       <label for="schoolName">School Name</label>
-      <input class="input" id="schoolName" name="schoolName" type="text" placeholder="Oakhill College" required>
+      <input class="input" id="schoolName" name="schoolName" type="text" placeholder="Sample High School (As Shown on Staff Admin)" required style="max-width:600px;">
 
       <div class="section-title">School Type</div>
       <div class="radio-group">
@@ -138,10 +144,14 @@
       </div>
 
       <label for="adminName">Admin Name</label>
-      <input class="input" id="adminName" name="adminName" type="text" placeholder="Jane Smith" required>
+      <div style="display: flex; gap: 16px; margin-bottom: 32px;">
+        <input class="input" id="adminLastName" name="adminLastName" type="text" placeholder="Last Name" required style="margin-bottom:0;">
+        <input class="input" id="adminFirstName" name="adminFirstName" type="text" placeholder="First Name" required style="margin-bottom:0;">
+        <input class="input" id="adminTitle" name="adminTitle" type="text" placeholder="Title (optional)" style="margin-bottom:0;">
+      </div>
 
       <label for="adminEmail">Admin Email Address</label>
-      <input class="input" id="adminEmail" name="adminEmail" type="email" placeholder="jane@det.nsw.edu.au" required>
+      <input class="input" id="adminEmail" name="adminEmail" type="email" placeholder="sample@teacher.com" required style="max-width:600px;">
 
       <div class="section-title">Subscription Method</div>
       <div class="radio-group">
