@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>MathsOnline School List Form</title>
+  <meta name="viewport" content="width=1200">
+  <style>
+    body {
+      background: #f0f2f5;
+      font-family: 'Inter', Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      background: #f5f6fa;
+      max-width: 1100px;
+      margin: 40px auto;
+      border-radius: 10px;
+      padding: 40px 40px 30px 40px;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+    }
+    .logo-row {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .logo-row img {
+      width: 70px;
+      height: 70px;
+      margin-right: 18px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    .logo-row span {
+      font-size: 2.3rem;
+      font-weight: 700;
+      color: #2196f3;
+      letter-spacing: -1px;
+      font-family: sans-serif;
+    }
+    label, .section-title {
+      font-size: 1.08rem;
+      font-weight: 600;
+      color: #444;
+      margin-bottom: 16px;
+      display: block;
+    }
+    .input, .input[readonly] {
+      width: 100%;
+      padding: 14px 16px;
+      border-radius: 8px;
+      border: 1px solid #e0e0e0;
+      background: #f7f7f7;
+      font-size: 1rem;
+      margin-bottom: 32px;
+      color: #888;
+    }
+    .input[readonly] {
+      color: #bbb;
+    }
+    .radio-group {
+      display: flex;
+      gap: 40px;
+      margin-bottom: 32px;
+    }
+    .radio-label {
+      display: flex;
+      align-items: center;
+      font-size: 1rem;
+      color: #444;
+      cursor: pointer;
+    }
+    .radio-label input[type="radio"] {
+      margin-right: 8px;
+      accent-color: #1a73e8;
+    }
+    .dropzone {
+      border: 2px dashed #e0e0e0;
+      border-radius: 10px;
+      background: #fafbfc;
+      min-height: 120px;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      color: #bbb;
+      font-size: 1.1rem;
+      margin-bottom: 32px;
+      transition: border-color 0.2s;
+      cursor: pointer;
+      position: relative;
+    }
+    .dropzone.dragover {
+      border-color: #1a73e8;
+      color: #1a73e8;
+      background: #f0f7ff;
+    }
+    .submit-btn {
+      width: 100%;
+      background: #1a73e8;
+      color: #fff;
+      font-size: 1.2rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      padding: 16px 0;
+      cursor: pointer;
+      transition: background 0.2s;
+      margin-top: 10px;
+    }
+    .submit-btn:hover {
+      background: #1765c1;
+    }
+    @media (max-width: 900px) {
+      .container { padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="logo-row" style="margin-bottom: 10px;">
+      <img src="logo.jpg" alt="Logo">
+      <div>
+        <span style="font-size:2.3rem;font-weight:700;color:#2196f3;letter-spacing:-1px;font-family:sans-serif;">Maths</span><span style="font-size:2.3rem;font-weight:700;color:#222;letter-spacing:-1px;font-family:sans-serif;">Online</span>
+        <div style="font-size:1.1rem;color:#222;font-weight:400;margin-top:2px;">YOUR ONLINE MATHS TUTOR</div>
+      </div>
+    </div>
+    <div style="padding-bottom:32px;"></div>
+    <hr style="border:none;border-top:1.5px solid #e0e0e0;margin-bottom:36px;">
+    <form id="schoolForm" enctype="multipart/form-data">
+      <label for="schoolName">School Name</label>
+      <input class="input" id="schoolName" name="schoolName" type="text" placeholder="Oakhill College" required>
+
+      <div class="section-title">School Type</div>
+      <div class="radio-group">
+        <label class="radio-label"><input type="radio" name="schoolType" value="Primary School" required>Primary School</label>
+        <label class="radio-label"><input type="radio" name="schoolType" value="Secondary School">Secondary School</label>
+        <label class="radio-label"><input type="radio" name="schoolType" value="K-12 School">K-12 School</label>
+      </div>
+
+      <label for="adminName">Admin Name</label>
+      <input class="input" id="adminName" name="adminName" type="text" placeholder="Jane Smith" required>
+
+      <label for="adminEmail">Admin Email Address</label>
+      <input class="input" id="adminEmail" name="adminEmail" type="email" placeholder="jane@det.nsw.edu.au" required>
+
+      <div class="section-title">Subscription Method</div>
+      <div class="radio-group">
+        <label class="radio-label"><input type="radio" name="subscriptionMethod" value="Clean Slate" required>Clean Slate</label>
+        <label class="radio-label"><input type="radio" name="subscriptionMethod" value="Rollover">Rollover</label>
+        <label class="radio-label"><input type="radio" name="subscriptionMethod" value="Additional Students">Additional Students</label>
+        <label class="radio-label"><input type="radio" name="subscriptionMethod" value="Rollover Keep Password">Rollover Keep Password</label>
+      </div>
+
+      <div class="section-title">Attachments</div>
+      <div class="dropzone" id="dropzone">
+        <div id="uploadedFiles"></div>
+        <div id="dropzoneArea" style="display:flex;align-items:center;justify-content:center;min-height:80px;">
+          <span id="dropzoneText">Upload Attachments</span>
+          <input type="file" id="attachments" name="attachments" multiple style="display:none;">
+        </div>
+      </div>
+
+      <button class="submit-btn" type="submit">Submit</button>
+    </form>
+  </div>
+  <script>
+    // Drag and drop for attachments
+    const dropzone = document.getElementById('dropzone');
+    const dropzoneArea = document.getElementById('dropzoneArea');
+    const fileInput = document.getElementById('attachments');
+    const uploadedFiles = document.getElementById('uploadedFiles');
+    let files = [];
+
+    dropzoneArea.addEventListener('click', () => fileInput.click());
+    dropzone.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      dropzone.classList.add('dragover');
+    });
+    dropzone.addEventListener('dragleave', () => dropzone.classList.remove('dragover'));
+    dropzone.addEventListener('drop', (e) => {
+      e.preventDefault();
+      dropzone.classList.remove('dragover');
+      addFiles(Array.from(e.dataTransfer.files));
+    });
+    fileInput.addEventListener('change', (e) => {
+      addFiles(Array.from(e.target.files));
+    });
+    function addFiles(newFiles) {
+      for (const f of newFiles) {
+        if (!files.some(existing => existing.name === f.name && existing.size === f.size)) {
+          files.unshift(f); // add to top
+        }
+      }
+      updateFileList();
+    }
+    function removeFile(index) {
+      files.splice(index, 1);
+      updateFileList();
+    }
+    function updateFileList() {
+      uploadedFiles.innerHTML = files.map((f, i) =>
+        `<div style="display:flex;align-items:center;justify-content:space-between;background:#fff;border-radius:6px;padding:10px 16px;margin-bottom:8px;box-shadow:0 1px 4px rgba(0,0,0,0.03);font-size:1rem;color:#222;">
+          <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:80%;color:#222;">${f.name}</span>
+          <button type="button" onclick="removeFile(${i})" style="background:none;border:none;color:#e53935;font-size:1.2rem;font-weight:bold;cursor:pointer;margin-left:16px;">&times;</button>
+        </div>`
+      ).join('');
+    }
+    window.removeFile = removeFile;
+
+    // Form submission
+    document.getElementById('schoolForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const formData = new FormData(this);
+      files.forEach(f => formData.append('attachments', f));
+      try {
+        const res = await fetch('/api/trigger-webhook', {
+          method: 'POST',
+          body: formData
+        });
+        if (res.ok) {
+          alert('Form submitted successfully!');
+          this.reset();
+          files = [];
+          updateFileList();
+        } else {
+          alert('Submission failed.');
+        }
+      } catch (err) {
+        alert('Error submitting form.');
+      }
+    });
+  </script>
+</body>
+</html> 
