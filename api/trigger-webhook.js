@@ -64,11 +64,17 @@ module.exports = (req, res) => {
       subscriptionMethod,
       attachments,
       numberOfAttachments,
+      allExcel: false,
+      allPDF: false,
+      allImage: false,
     };
     if (attachments.length > 1) {
-      if (allExcel) body.allExcel = true;
-      if (allPDF) body.allPDF = true;
-      if (allImage) body.allImage = true;
+      body.allExcel = allExcel;
+      body.allPDF = allPDF;
+      body.allImage = allImage;
+      if (!allExcel && !allPDF && !allImage) {
+        body.combinedFileTypes = true;
+      }
       if (excelAttachments.length) body.excelAttachments = excelAttachments;
       if (pdfAttachments.length) body.pdfAttachments = pdfAttachments;
       if (imageAttachments.length) body.imageAttachments = imageAttachments;
